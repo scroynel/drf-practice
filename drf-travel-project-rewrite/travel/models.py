@@ -8,9 +8,17 @@ class TravelProject(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+    def __str__(self):
+        return self.name
+
+
 class Place(models.Model):
     external_id = models.IntegerField(db_index=True)
     name = models.CharField(max_length=100)
+
+
+    def __str__(self):
+        return self.name
 
 
 class TravelProjectPlace(models.Model):
@@ -19,3 +27,7 @@ class TravelProjectPlace(models.Model):
     notes = models.TextField(blank=True, null=True)
     visited = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f'{self.project} - {self.place} - {self.visited}' 
