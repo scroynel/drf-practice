@@ -29,3 +29,9 @@ class TravelProjectPlaceViewSet(viewsets.ModelViewSet):
         if self.action in ['update', 'partial_update']:
             return TravelProjectPlaceUpdateSerializer
         return TravelProjectPlaceSerializer
+
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['project_pk'] = self.kwargs['project_pk']
+        return context
