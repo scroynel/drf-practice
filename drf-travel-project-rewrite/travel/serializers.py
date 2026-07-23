@@ -1,5 +1,5 @@
 from rest_framework import serializers, exceptions
-from travel.models import TravelProject
+from travel.models import TravelProject, TravelProjectPlace
 
 
 class TravelProjectSerializer(serializers.ModelSerializer):
@@ -8,3 +8,12 @@ class TravelProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = TravelProject
         fields = ('id', 'name', 'description', 'start_date', 'created_at')
+
+
+class TravelProjectPlaceSerializer(serializers.ModelSerializer):
+    external_id = serializers.IntegerField(write_only=True)
+
+    class Meta: 
+        model = TravelProjectPlace
+        fields = '__all__'
+        read_only_fields = ('project', 'place')

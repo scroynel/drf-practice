@@ -1,6 +1,6 @@
 from rest_framework import viewsets, exceptions
-from travel.models import TravelProject
-from travel.serializers import TravelProjectSerializer
+from travel.models import TravelProject, TravelProjectPlace
+from travel.serializers import TravelProjectSerializer, TravelProjectPlaceSerializer
 
 
 class TravelProjectViewSet(viewsets.ModelViewSet):
@@ -14,3 +14,12 @@ class TravelProjectViewSet(viewsets.ModelViewSet):
             raise exceptions.ValidationError(f'This travel project "{obj.name}" cannot be removed. It has visited places!')
         
         return super().destroy(request, *args, **kwargs)
+
+
+class TravelProjectPlaceViewSet(viewsets.ModelViewSet):
+    serializer_class = TravelProjectPlaceSerializer
+
+
+    def get_queryset(self):
+        project_pk = self.kwargs['project_pk']
+        return TravelProjectPlace.objects.filter(project_id=project_pk)
