@@ -17,3 +17,9 @@ class TravelProjectPlaceSerializer(serializers.ModelSerializer):
         model = TravelProjectPlace
         fields = '__all__'
         read_only_fields = ('project', 'place')
+
+
+class TravelProjectPlaceUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TravelProjectPlace
+        fields = ('notes', 'visited')

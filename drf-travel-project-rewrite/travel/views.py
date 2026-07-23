@@ -1,6 +1,6 @@
 from rest_framework import viewsets, exceptions
 from travel.models import TravelProject, TravelProjectPlace
-from travel.serializers import TravelProjectSerializer, TravelProjectPlaceSerializer
+from travel.serializers import TravelProjectSerializer, TravelProjectPlaceSerializer, TravelProjectPlaceUpdateSerializer
 
 
 class TravelProjectViewSet(viewsets.ModelViewSet):
@@ -23,3 +23,9 @@ class TravelProjectPlaceViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         project_pk = self.kwargs['project_pk']
         return TravelProjectPlace.objects.filter(project_id=project_pk)
+
+
+    def get_serializer_class(self):
+        if self.action in ['update', 'partial_update']:
+            return TravelProjectPlaceUpdateSerializer
+        return TravelProjectPlaceSerializer
